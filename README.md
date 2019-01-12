@@ -1,1 +1,4 @@
-# music
+# MusicSorter
+
+### Currently included algorithms:
+TODO
