@@ -1,23 +1,16 @@
 @import com.music.sort.shared.Note
+@import com.music.sort
 @import com.music.sort.shared.DoubleStop
-
 @(f: Map[Int, List[DoubleStop]], notes: List[Note])
 
 
 <section id="top">
-    <div class="wrapper">
-        <h1>@f</h1>
-    </div>
 </section>
 
-<div class="button" onclick="sort()">Sortuj!</div>
+<button id="sortButton">Sortuj!</button>
 
-<div class="row">
-@for(note <- notes) {
-    <div class="column">
-        <div class="rectangle" id="@note.height"></div>
-    </div>
-}
+<div class="row" id="row">
+
 </div>
 
 
