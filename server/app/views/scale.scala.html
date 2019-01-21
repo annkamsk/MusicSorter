@@ -1,10 +1,18 @@
 @import com.music.sort.shared.Note
 @import com.music.sort
 @import com.music.sort.shared.DoubleStop
-@(f: Map[Int, List[DoubleStop]], notes: List[Note])
-
+@(title: String)
 
 <section id="top">
+    <h2>@title</h2>
+</section>
+
+<section id="choice">
+    <h3>Choose your algorithm, maestro</h3>
+    <section id="list"></section>
+
+    <h3>And choose your scale</h3>
+    <select id="scales"></select>
 </section>
 
 <button id="sortButton">Sortuj!</button>

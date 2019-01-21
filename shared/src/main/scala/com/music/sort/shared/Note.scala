@@ -1,11 +1,14 @@
 package com.music.sort.shared
 
-class Note(val height: Int) {
-  def <(note: Note): Boolean = height < note.height
+class Note(val pitch: Pitches.PitchClass, octave: Int) {
+  lazy val midi: Int = pitch.getMidi + (octave + 1) * 12
 
-  def equals(obj: Note): Boolean = height.equals(obj.height)
+  //  no, it doesn't make any sense to construct such fancy ids but to show off my scala skills
+  lazy val id: String = (midi.toString.map(_.asDigit) collect Note.ID_MAPPER).mkString("")
 
-  def getId: String = (height.toString.map(_.asDigit) collect Note.ID_MAPPER).mkString("")
+  def <(that: Note): Boolean = this.octave < that.octave || (this.octave == that.octave && this.pitch < that.pitch)
+
+  override def toString: String = pitch.toString + octave
 
 }
 

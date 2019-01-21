@@ -1,13 +1,13 @@
 package com.music.sort
 
-import com.music.sort.shared.Note
+import com.music.sort.shared.{Note, Pitches, Scales}
 import org.scalajs.dom
 import org.scalajs.dom.raw.MouseEvent
 
 object ScalaJSExample {
-
   def main(args: Array[String]): Unit = {
-    val notes = List(new Note(43), new Note(11), new Note(10), new Note(12), new Note(5), new Note(3))
+    val notes = List()
+    SelectScales.init()
     init(notes)
     dom.document.getElementById("sortButton").addEventListener("click", (e: MouseEvent) => bubblesort(notes), useCapture = false)
 
@@ -20,7 +20,7 @@ object ScalaJSExample {
       col.setAttribute("class", "column")
       val rec = dom.document.createElement("div")
       rec.setAttribute("class", "rectangle")
-      rec.setAttribute("id", note.getId)
+      rec.setAttribute("id", note.id)
       col.appendChild(rec)
       row.appendChild(col)
     }
@@ -47,8 +47,8 @@ object ScalaJSExample {
   }
 
   def swap(n1: Note, n2: Note): Unit = {
-    val tmp: String = n1.getId
-    dom.document.getElementById(n1.getId).setAttribute("id", n2.getId)
-    dom.document.getElementById(n2.getId).setAttribute("id", tmp)
+    val tmp: String = n1.id
+    dom.document.getElementById(n1.id).setAttribute("id", n2.id)
+    dom.document.getElementById(n2.id).setAttribute("id", tmp)
   }
 }
