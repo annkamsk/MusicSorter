@@ -1,6 +1,5 @@
 @import com.music.sort.shared.Note
 @import com.music.sort
-@import com.music.sort.shared.DoubleStop
 @(title: String)
 
 <section id="top">
@@ -12,7 +11,10 @@
     <section id="list"></section>
 
     <h3>And choose your scale</h3>
-    <select id="scales"></select>
+    <select class="styled-select black rounded" id="scales"></select>
+
+    <h3>And select your base</h3>
+    <select class="styled-select black rounded" id="bases"></select>
 </section>
 
 <button id="sortButton">Sortuj!</button>

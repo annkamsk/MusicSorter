@@ -4,9 +4,7 @@ import com.music.sort.shared.Scales
 import com.music.sort.shared.Scales.Scale
 import org.scalajs.dom
 
-import scala.scalajs.js
-
-object SelectScales extends js.type {
+object SelectScales {
   val chosen: Scale = null
 
   def init(): Unit = {

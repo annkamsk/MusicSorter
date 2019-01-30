@@ -1,6 +1,6 @@
 package com.music.sort.shared
 
-class Note(val pitch: Pitches.PitchClass, octave: Int) {
+class Note(val pitch: Pitches.PitchClass, val octave: Int) {
   lazy val midi: Int = pitch.getMidi + (octave + 1) * 12
 
   //  no, it doesn't make any sense to construct such fancy ids but to show off my scala skills

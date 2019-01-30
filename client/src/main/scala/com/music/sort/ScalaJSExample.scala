@@ -6,8 +6,10 @@ import org.scalajs.dom.raw.MouseEvent
 
 object ScalaJSExample {
   def main(args: Array[String]): Unit = {
-    val notes = List()
+    val notes = List(new Note(Pitches.GSharp, 3), new Note(Pitches.D, 4), new Note(Pitches.A, 3),
+      new Note(Pitches.CSharp, 3), new Note(Pitches.CSharp, 3), new Note(Pitches.H, 4))
     SelectScales.init()
+    SelectBases.init()
     init(notes)
     dom.document.getElementById("sortButton").addEventListener("click", (e: MouseEvent) => bubblesort(notes), useCapture = false)
 
