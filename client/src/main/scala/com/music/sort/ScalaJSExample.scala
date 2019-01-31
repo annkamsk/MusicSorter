@@ -1,21 +1,25 @@
 package com.music.sort
 
-import com.music.sort.shared.{Note, Pitches, Scales}
+import com.music.sort.shared.{Note, Pitches}
 import org.scalajs.dom
 import org.scalajs.dom.raw.MouseEvent
 
 object ScalaJSExample {
+  var notes: List[Note] = List(new Note(Pitches.GSharp, 3), new Note(Pitches.D, 4), new Note(Pitches.A, 3),
+    new Note(Pitches.CSharp, 3), new Note(Pitches.CSharp, 3), new Note(Pitches.H, 4))
+
   def main(args: Array[String]): Unit = {
-    val notes = List(new Note(Pitches.GSharp, 3), new Note(Pitches.D, 4), new Note(Pitches.A, 3),
-      new Note(Pitches.CSharp, 3), new Note(Pitches.CSharp, 3), new Note(Pitches.H, 4))
     SelectScales.init()
     SelectBases.init()
-    init(notes)
+    init()
     dom.document.getElementById("sortButton").addEventListener("click", (e: MouseEvent) => bubblesort(notes), useCapture = false)
+    dom.document.getElementById("generateButton").addEventListener("click", (e: MouseEvent) => init(),
+      useCapture = false)
 
   }
 
-  def init(notes: List[Note]): Unit = {
+  def init(): Unit = {
+
     val row = dom.document.getElementById("row")
     for (note <- notes) {
       val col = dom.document.createElement("div")

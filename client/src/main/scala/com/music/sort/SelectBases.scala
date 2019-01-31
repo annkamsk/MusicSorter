@@ -1,11 +1,11 @@
 package com.music.sort
 
-import com.music.sort.shared.Pitches.PitchClass
-import com.music.sort.shared.{Pitches, Scales}
+import com.music.sort.shared.Pitches
 import org.scalajs.dom
+import org.scalajs.dom.raw.{HTMLSelectElement, MouseEvent}
 
 object SelectBases {
-  val chosen: PitchClass = null
+  var chosen: Int = _
 
   def init(): Unit = {
     val select = dom.document.getElementById("bases")
@@ -15,9 +15,15 @@ object SelectBases {
       option.innerHTML = base.letter
       select.appendChild(option)
     }
+    select.addEventListener("change", (e: MouseEvent) => this.onChange(), useCapture = false)
   }
 
-  def onSelect(): Unit = {
+  def onChange(): Unit = {
+    val e = dom.document.getElementById("bases").asInstanceOf[HTMLSelectElement]
+    chosen = e.selectedIndex
+  }
 
+  def getNotes() = {
+    
   }
 }

@@ -1,4 +1,3 @@
-//import sbtcrossproject.{crossProject, CrossType}
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
 import sbtcrossproject.CrossType
 
