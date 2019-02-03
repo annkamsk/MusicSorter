@@ -1,11 +1,11 @@
 package com.music.sort
 
 import com.music.sort.shared.Scales
-import com.music.sort.shared.Scales.Scale
 import org.scalajs.dom
+import org.scalajs.dom.raw.{HTMLSelectElement, MouseEvent}
 
 object SelectScales {
-  val chosen: Scale = null
+  var chosen: Int = 0
 
   def init(): Unit = {
     val select = dom.document.getElementById("scales")
@@ -15,10 +15,11 @@ object SelectScales {
       option.innerHTML = scale.name
       select.appendChild(option)
     }
+    select.addEventListener("change", (e: MouseEvent) => this.onChange(), useCapture = false)
   }
 
-  def onSelect(): Unit = {
-
+  def onChange(): Unit = {
+    chosen = dom.document.getElementById("scales").asInstanceOf[HTMLSelectElement].selectedIndex
   }
 
 }

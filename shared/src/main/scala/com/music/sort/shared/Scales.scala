@@ -21,5 +21,5 @@ object Scales {
 
   case object MAJOR extends Scale(Array(1, 3, 5, 6, 9, 10, 12), "Major")
 
-  val scales: Set[Scale] = Set(BLUES, DOUBLE_HARMONIC, GYPSY, MAJOR)
+  val scales: Seq[Scale] = Seq(BLUES, DOUBLE_HARMONIC, GYPSY, MAJOR)
 }

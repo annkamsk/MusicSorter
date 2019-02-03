@@ -37,6 +37,9 @@ object Pitches {
 
   case object H extends PitchClass("H", 11)
 
-  val pitches: Set[PitchClass] = Set(C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, H)
+  def getPitch(nr: Int, base: Pitches.PitchClass): PitchClass = pitches.filter(p => (base.midiBase + nr - 1)
+    % pitches.size == p.midiBase).head
+
+  val pitches: Seq[PitchClass] = Seq(C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, H)
 
 }

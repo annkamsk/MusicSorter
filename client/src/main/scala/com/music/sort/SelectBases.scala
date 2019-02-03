@@ -5,7 +5,7 @@ import org.scalajs.dom
 import org.scalajs.dom.raw.{HTMLSelectElement, MouseEvent}
 
 object SelectBases {
-  var chosen: Int = _
+  var chosen: Int = 0
 
   def init(): Unit = {
     val select = dom.document.getElementById("bases")
@@ -19,11 +19,6 @@ object SelectBases {
   }
 
   def onChange(): Unit = {
-    val e = dom.document.getElementById("bases").asInstanceOf[HTMLSelectElement]
-    chosen = e.selectedIndex
-  }
-
-  def getNotes() = {
-    
+    chosen = dom.document.getElementById("bases").asInstanceOf[HTMLSelectElement].selectedIndex
   }
 }
