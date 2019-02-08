@@ -3,7 +3,7 @@ package com.music.sort.shared
 trait Sortable {
   val name = "Default"
 
-  def sort(collection: List[Note], swap: (Note, Note) => Unit): Unit = {
+  def sort(collection: Array[Note], swap: (Note, Note) => Boolean): Unit = {
     // default sort
   }
 }

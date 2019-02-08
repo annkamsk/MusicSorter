@@ -6,6 +6,6 @@ function makeSound(pitch, octave) {
     }
     var filename = pitch.toLowerCase() + octave;
     var horn = new Audio('versionedAssets/sounds/' + filename + '.mp3');
-    horn.play();
+    return horn.play();
 }
 

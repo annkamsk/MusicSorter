@@ -1,8 +1,8 @@
 package com.music.sort.shared
 
-class NotesCollection(collection: List[Note], swap: (Note, Note) => Unit) extends Sortable with Iterable[Note] {
-  def this(swap: (Note, Note) => Unit) {
-    this(List(), swap)
+class NotesCollection(collection: Array[Note], swap: (Note, Note) => Boolean) extends Sortable with Iterable[Note] {
+  def this(swap: (Note, Note) => Boolean) {
+    this(Array(), swap)
   }
 
   def apply(): Unit = {
