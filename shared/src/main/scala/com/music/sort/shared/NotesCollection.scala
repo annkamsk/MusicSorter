@@ -1,12 +1,13 @@
 package com.music.sort.shared
 
-class NotesCollection(array: Array[Note]) {
-
-  def this() {
-    this(new Array[Note](0))
+class NotesCollection(collection: List[Note], swap: (Note, Note) => Unit) extends Sortable with Iterable[Note] {
+  def this(swap: (Note, Note) => Unit) {
+    this(List(), swap)
   }
 
-  def add(note: Note) = new NotesCollection(Array.concat(array, Array(note)))
+  def apply(): Unit = {
+    sort(collection, swap)
+  }
 
-
+  override def iterator: Iterator[Note] = collection.iterator
 }

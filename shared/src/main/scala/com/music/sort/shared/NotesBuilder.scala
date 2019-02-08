@@ -1,7 +1,6 @@
-package com.music.sort
+package com.music.sort.shared
 
 import com.music.sort.shared.Scales.Scale
-import com.music.sort.shared.{Note, Pitches, Scales}
 
 class NotesBuilder(base: Pitches.PitchClass, scale: Scale) {
   val SIZE = 24
