@@ -1,12 +1,14 @@
 package com.music.sort
 
-import scala.scalajs.js.timers._
-
 import com.music.sort.shared.{BubbleSort, Note, NotesBuilder, NotesCollection}
 import org.scalajs.dom
 import org.scalajs.dom.raw.{HTMLElement, MouseEvent}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future, Promise}
 import scala.scalajs.js
+import scala.scalajs.js.Promise
 
 object ScalaJSExample {
   var collection: NotesCollection = new NotesCollection(compareAndSwap)
@@ -57,19 +59,31 @@ object ScalaJSExample {
   }
 
 
-  def compareAndSwap(n1: Note, n2: Note): Boolean = {
-    var result = true
-    if (n2 < n1) {
-      val tmp: String = n1.id
-      js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave).then(result) {
-        dom.document.getElementById(n1.id).setAttribute("id", n2.id)
+  def compareAndSwap(n1: Note, n2: Note): Future[Boolean] = {
+    val f: Future[Unit] = Future {
+      if (n2 < n1) {
+        val tmp: String = n1.id
+
+        js.timers.setInterval(1000) {
+          js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave)
+          dom.document.getElementById(n1.id).setAttribute("id", n2.id)
+        }
+        js.timers.setInterval(1000) {
+          js.Dynamic.global.makeSound(n2.pitch.toString, n2.octave)
+          dom.document.getElementById(n2.id).setAttribute("id", tmp)
+
+        }
+        //        js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave)
+        //          .toFuture
+        //          .foreach(() => {
+        //            dom.document.getElementById(n1.id).setAttribute("id", n2.id)
+        //            js.Dynamic.global.makeSound(n2.pitch.toString, n2.octave).toFuture.foreach(()
+        //            => {
+        //              dom.document.getElementById(n2.id).setAttribute("id", tmp)
+        //            })
+        //          })
       }
-      js.Dynamic.global.makeSound(n2.pitch.toString, n2.octave).then(result) {
-        dom.document.getElementById(n2.id).setAttribute("id", tmp)
-      }
-    } else {
-      result = false
     }
-    result
+    f map { r => if (n2 < n1) true else false }
   }
 }
