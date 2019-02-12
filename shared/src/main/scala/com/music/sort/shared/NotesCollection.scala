@@ -1,10 +1,8 @@
 package com.music.sort.shared
 
-import scala.concurrent.Future
-
-class NotesCollection(collection: Array[Note], swap: (Note, Note) => Unit) extends Sortable with
+class NotesCollection(collection: Array[Note], swap: (Note, Note) => Boolean) extends Sortable with
   Iterable[Note] {
-  def this(swap: (Note, Note) => Unit) {
+  def this(swap: (Note, Note) => Boolean) {
     this(Array(), swap)
   }
 

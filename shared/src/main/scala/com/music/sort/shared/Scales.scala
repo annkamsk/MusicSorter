@@ -5,11 +5,13 @@ object Scales {
   // note: I'm considering only equally tempered scales (meaning 12 intervals per octave)
   sealed abstract class Scale(
                                val sharps: Array[Int],
-                               val name: String) extends Ordered[Scale] {
+                               val name: String) extends Ordered[Scale] with Selectable {
 
     override def toString: String = name
 
     override def compare(that: Scale): Int = this.sharps.length - that.sharps.length
+
+    override def getName: String = name
   }
 
   case object BLUES extends Scale(Array(1, 3, 4, 5, 8), "Blues")

@@ -5,12 +5,15 @@ object Pitches {
   sealed abstract class PitchClass(
                                     val letter: String,
                                     val midiBase: Int
-                                  ) extends Ordered[PitchClass] {
+                                  ) extends Ordered[PitchClass] with Selectable {
+
     def compare(that: PitchClass): Int = this.midiBase - that.midiBase
 
     def getMidi: Int = this.midiBase
 
     override def toString: String = letter
+
+    override def getName: String = letter
   }
 
   case object C extends PitchClass("C", 0)
@@ -35,11 +38,11 @@ object Pitches {
 
   case object ASharp extends PitchClass("A#", 10)
 
-  case object H extends PitchClass("H", 11)
+  case object B extends PitchClass("B", 11)
 
   def getPitch(nr: Int, base: Pitches.PitchClass): PitchClass = pitches.filter(p => (base.midiBase + nr - 1)
     % pitches.size == p.midiBase).head
 
-  val pitches: Seq[PitchClass] = Seq(C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, H)
+  val pitches: Seq[PitchClass] = Seq(C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, B)
 
 }

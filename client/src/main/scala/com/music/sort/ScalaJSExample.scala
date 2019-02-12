@@ -2,88 +2,33 @@ package com.music.sort
 
 import com.music.sort.shared.{BubbleSort, Note, NotesBuilder, NotesCollection}
 import org.scalajs.dom
-import org.scalajs.dom.raw.{HTMLElement, MouseEvent}
+import org.scalajs.dom.raw.MouseEvent
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future, Promise}
 import scala.scalajs.js
-import scala.scalajs.js.Promise
 
 object ScalaJSExample {
   var collection: NotesCollection = new NotesCollection(compareAndSwap)
+  var DOM: DOM = _
 
   def main(args: Array[String]): Unit = {
-    SelectAlgorithms.init()
-    SelectScales.init()
-    SelectBases.init()
+    DOM = new DOM()
     init()
-    dom.document.getElementById("sortButton").addEventListener("click", (e: MouseEvent) => collection.apply(),
+    dom.document.getElementById("sortButton").addEventListener("click", (e: MouseEvent) => {
+      collection.apply()
+      js.Dynamic.global.play(0)
+    },
       useCapture = false)
     dom.document.getElementById("generateButton").addEventListener("click", (e: MouseEvent) => init(),
       useCapture = false)
   }
 
   def init(): Unit = {
-    deleteOld()
-    val notes = new NotesBuilder(SelectBases.chosen, SelectScales.chosen).getNotes
+    DOM.cleanKeyboard(collection)
+    val notes = new NotesBuilder(DOM.selectBases.chosen, DOM.selectScales.chosen).getNotes
     collection = new NotesCollection(notes, compareAndSwap) with BubbleSort
-    val row = dom.document.getElementById("row")
-    var color = true
-
-    def getColor: String = {
-      color = !color
-      if (color) "black" else "#FFFFF0"
-    }
-
-    for (note <- notes) {
-      val col = dom.document.createElement("div")
-      col.setAttribute("class", "column")
-      col.setAttribute("id", "col" + note.id)
-      val rec = dom.document.createElement("div")
-      rec.setAttribute("class", "rectangle")
-      rec.asInstanceOf[HTMLElement].style.backgroundColor = getColor
-      rec.setAttribute("id", note.id)
-      col.appendChild(rec)
-      row.appendChild(col)
-    }
+    DOM.createKeyboard(notes)
   }
 
-  def deleteOld(): Unit = {
-    for (note <- collection) {
-      val old = dom.document.getElementById(note.id)
-      val parent = old.parentNode
-      old.parentNode.removeChild(old)
-      parent.parentNode.removeChild(parent)
-    }
-  }
+  def compareAndSwap(n1: Note, n2: Note): Boolean = if (n2 < n1) DOM.swap(n1, n2) else false
 
-
-  def compareAndSwap(n1: Note, n2: Note): Future[Boolean] = {
-    val f: Future[Unit] = Future {
-      if (n2 < n1) {
-        val tmp: String = n1.id
-
-        js.timers.setInterval(1000) {
-          js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave)
-          dom.document.getElementById(n1.id).setAttribute("id", n2.id)
-        }
-        js.timers.setInterval(1000) {
-          js.Dynamic.global.makeSound(n2.pitch.toString, n2.octave)
-          dom.document.getElementById(n2.id).setAttribute("id", tmp)
-
-        }
-        //        js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave)
-        //          .toFuture
-        //          .foreach(() => {
-        //            dom.document.getElementById(n1.id).setAttribute("id", n2.id)
-        //            js.Dynamic.global.makeSound(n2.pitch.toString, n2.octave).toFuture.foreach(()
-        //            => {
-        //              dom.document.getElementById(n2.id).setAttribute("id", tmp)
-        //            })
-        //          })
-      }
-    }
-    f map { r => if (n2 < n1) true else false }
-  }
 }

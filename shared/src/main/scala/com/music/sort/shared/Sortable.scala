@@ -1,13 +1,13 @@
 package com.music.sort.shared
 
-import scala.concurrent.Future
-
-trait Sortable {
+trait Sortable extends Selectable {
   val name = "Default"
 
-  def sort(collection: Array[Note], swap: (Note, Note) => Unit): Unit = {
+  def sort(collection: Array[Note], swap: (Note, Note) => Boolean): Unit = {
     // default sort
   }
+
+  override def getName: String = name
 }
 
 object Sortable {
