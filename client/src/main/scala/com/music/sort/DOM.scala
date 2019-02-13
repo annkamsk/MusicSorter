@@ -8,13 +8,16 @@ import org.scalajs.dom.raw.{Element, HTMLElement, MouseEvent}
 import scala.scalajs.js
 
 class DOM {
-  val sortButton: Element = dom.document.getElementById("sortButton")
-  val generateButton: Element = dom.document.getElementById("generateButton")
+  val sortButton: Element = getElement("sortButton")
+  val generateButton: Element = getElement("generateButton")
   val selectAlgorithms = new Select(Sortable.algorithms, "algos")
+  val stop: Element = getElement("stop")
   val selectScales = new Select(Scales.scales, "scales")
   val selectBases = new Select(Pitches.pitches, "bases")
 
   def initSort(f: () => Unit): Unit = sortButton.addEventListener("click", (e: MouseEvent) => f, useCapture = false)
+
+  def getElement(id: String): Element = dom.document.getElementById(id)
 
   def swap(n1: Note, n2: Note): Boolean = {
     js.Dynamic.global.makeSound(n1.pitch.toString, n1.octave)
@@ -26,7 +29,7 @@ class DOM {
     true
   }
 
-  def createKeyboard(notes: Array[Note]): Unit = {
+  def createKeyboard(notes: NotesCollection): Unit = {
     val row = dom.document.getElementById("row")
     var color = true
 

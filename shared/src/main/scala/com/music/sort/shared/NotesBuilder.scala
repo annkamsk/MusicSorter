@@ -19,7 +19,7 @@ class NotesBuilder(base: Pitches.PitchClass, scale: Scale) {
   }
 
 
-  def getNotes: Array[Note] = {
+  def getNotes: List[Note] = {
     def dupe[Note](as: Seq[Note]): Stream[Note] = as match {
       case Seq(h, t@_*) => h #:: h #:: dupe(t)
       case _ => Stream.empty
@@ -42,6 +42,6 @@ class NotesBuilder(base: Pitches.PitchClass, scale: Scale) {
           else
             unique
         }
-      }.toArray
+      }.toList
   }
 }

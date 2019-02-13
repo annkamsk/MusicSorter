@@ -4,7 +4,13 @@ head {
 
 body {
     background-color: #4B353A;
-    font-family: KacstLetter, Serif;
+}
+
+#top {
+    font-style: italic;
+    color: white;
+    font-variant: all-small-caps;
+    text-align: center;
 }
 
 .row {

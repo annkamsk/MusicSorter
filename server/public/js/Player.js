@@ -8,23 +8,7 @@ function makeSound(pitch, octave) {
         pitch = '_' + pitch;
     }
     var filename = pitch.toLowerCase() + octave;
-    // if (!audio) {
     audios.push(filename);
-    // }
-}
-
-function waitAWhile() {
-    setInterval(function () {
-    }, 2000);
-}
-
-function swap(id1, id2) {
-    var key1 = document.getElementById(id1);
-    var key2 = document.getElementById(id2);
-    setTimeout(function () {
-        key1.id = id2;
-        key2.id = id1;
-    }, 1000);
 }
 
 function play(i) {

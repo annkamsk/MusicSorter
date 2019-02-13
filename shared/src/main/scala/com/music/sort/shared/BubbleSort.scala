@@ -1,20 +1,32 @@
 package com.music.sort.shared
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
-
 
 trait BubbleSort extends Sortable {
   override val name = "Bubble Sort"
 
-  override def sort(list: Array[Note], compare: (Note, Note) => Boolean): Unit = {
-    for (i <- 0 until list.length - 1; j <- 0 until list.length - 1 - i) {
-      if (compare(list(j + 1), list(j))) {
-        val temp = list(j)
-        list(j) = list(j + 1)
-        list(j + 1) = temp
+  override def sort(list: List[Note], compare: (Note, Note) => Boolean): Unit = {
+    def bubbleSort(source: List[Note], result: List[Note]): List[Note] = {
+      if (source.isEmpty) {
+        result
+      } else {
+        bubble(source, Nil, result)
       }
     }
+
+    def bubble(source: List[Note], tmp: List[Note], result: List[Note])
+    : List[Note] =
+      source match {
+        case n1 :: n2 :: t =>
+          if (compare(n1, n2)) {
+            bubble(n2 :: t, tmp ::: List(n1), result)
+          }
+          else {
+            bubble(n1 :: t, tmp ::: List(n2), result)
+          }
+        case n1 :: t => bubbleSort(tmp, n1 :: result)
+      }
+
+    bubbleSort(list, Nil)
   }
 
 
